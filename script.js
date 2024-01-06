@@ -73,6 +73,9 @@ const cvs = document.querySelector('#cvs');
 
 const ctx = cvs.getContext('2d');
 
+const img1 = document.getElementById("mozog");
+const img2 = document.getElementById("lő");
+
 const cvsHeight = 600;
 
 const cvsWidth = 600;
@@ -113,7 +116,8 @@ function draw() {
     
     
     ctx.clearRect(0, 0, cvsWidth, cvsHeight);
-    
+    ctx.drawImage(img1, 250, 500, 100, 100);
+
     
     
     
@@ -134,6 +138,7 @@ function shoot() {
     if(shootPressed) {
         // console.log("LŐ!");
         bulletController.shoot(shuttleX + (shuttleWidth / 2) - (projectileWidth / 2), shuttleY, projectileSpeed, projectileDelay);
+        ctx.drawImage(img2, 250, 500, 100, 100);
     }
 }
 
