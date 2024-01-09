@@ -86,7 +86,7 @@ class EnemyController{
         if(this.timerTillNextEnemy <= 0) {
             this.enemies.push(new Enemy(cvs));
             console.log(this.enemies.length);
-            this.timerTillNextEnemy = 100;
+            this.timerTillNextEnemy = 120;
         }
 
         this.timerTillNextEnemy--;
@@ -173,7 +173,7 @@ let shuttleY = cvsHeight - shuttleHeight;
 //PROJECTILE
 const projectileSpeed = 7;
 
-const projectileDelay = 60;
+const projectileDelay = 50;
 
 const projectileWidth = 25;
 
