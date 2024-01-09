@@ -7,8 +7,13 @@ class BulletController{
 
     shoot(x, y, speed, delay) {
         if(this.timerTillNextBullet <= 0) {
-            this.bullets.push(new Bullet(x, y, speed));
+            if(this.bullets.length <= 3) {
+                this.bullets.push(new Bullet(x, y, speed));
+                
+            }
+            
             this.timerTillNextBullet = delay;
+            
         }
 
         this.timerTillNextBullet--;
@@ -22,6 +27,16 @@ class BulletController{
                     this.bullets.splice(index, 1)
                 }
             bullet.draw(ctx)});
+    }
+
+    collideWith(sprite) {
+        return this.bullets.some(bullet=>{
+            if(bullet.collideWith(sprite)) {
+                this.bullets.splice(this.bullets.indexOf(bullet), 1);
+                return true;
+            }
+            return false;
+        })
     }
 
     checkProjectileOffScreen(bullet) {
@@ -47,6 +62,17 @@ class Bullet{
         // ctx.drawImage(img1, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
         ctx.drawImage(img3, this.x, this.y, this.width, this.height)
     }
+
+    collideWith(sprite) {
+        if(this.x < sprite.x + sprite.width &&
+           this.x + this.width > sprite.x &&
+           this.y <sprite.y + sprite.height &&
+           this.y + this.height > sprite.y) {
+            //ELTŰN
+            return true;
+           }
+           return false;
+    }
 }
 
 class EnemyController{
@@ -59,7 +85,8 @@ class EnemyController{
     spawn() {
         if(this.timerTillNextEnemy <= 0) {
             this.enemies.push(new Enemy(cvs));
-            this.timerTillNextEnemy = 250;
+            console.log(this.enemies.length);
+            this.timerTillNextEnemy = 100;
         }
 
         this.timerTillNextEnemy--;
@@ -68,8 +95,24 @@ class EnemyController{
     draw(ctx) {
         // console.log(this.bullets.length)
         this.enemies.forEach((enemy) => {
+
+            if(this.checkEnemyOffScreen(enemy)) {
                 
-            enemy.draw(ctx)});
+                alert("VESZTETTÉL!");
+            }
+
+            if(bulletController.collideWith(enemy)) {
+                this.enemies.splice(this.enemies.indexOf(enemy), 1)
+            }
+            else {
+                enemy.draw(ctx)
+            }
+
+            });
+    }
+
+    checkEnemyOffScreen(enemy) {
+        return enemy.y >= cvsHeight + enemy.height;
     }
 }
 
@@ -77,7 +120,8 @@ class Enemy{
     constructor(canvas) {
         this.height = 50;
         this.width = 50;
-        this.x = Math.floor(Math.random() * ((cvsWidth- this.width) - 0) );
+        this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
+        
         console.log(this.x);
         this.y = -this.height;
         this.canvas = canvas;
@@ -90,7 +134,7 @@ class Enemy{
     draw(ctx) {
 
         ctx.fillStyle = this.color;
-        this.y += 1;
+        this.y += 2;
         ctx.fillRect(this.x, this.y, this.width, this.height); 
         
     }
@@ -120,7 +164,7 @@ const shuttleWidth = 100;
 
 const shuttleHeight = 100;
 
-const shuttleSpeed = 25;
+// const shuttleSpeed = 25;
 
 let shuttleX = (cvsWidth - shuttleWidth) / 2;
 
@@ -129,7 +173,7 @@ let shuttleY = cvsHeight - shuttleHeight;
 //PROJECTILE
 const projectileSpeed = 7;
 
-const projectileDelay = 40;
+const projectileDelay = 60;
 
 const projectileWidth = 25;
 
@@ -142,6 +186,10 @@ const projectileX = shuttleX + (shuttleWidth / 2) - (projectileWidth / 2);
 const projectileY = shuttleY - projectileHeight;
 
 let shootPressed = false;
+
+let velXLeft = 0;
+
+let velXRight = 0;
 
 //BULLET CONTROLLER
 const bulletController = new BulletController(cvs);
@@ -163,8 +211,24 @@ function draw() {
     // ctx.fillStyle = "blue";
     // ctx.fillRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight)
 
-    ctx.drawImage(img1, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+    shuttleX += velXLeft;
+    
+    shuttleX += velXRight;
 
+    
+    if (shootPressed) {
+        ctx.drawImage(img2, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+    }
+    else {
+        ctx.drawImage(img1, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+    }
+    
+    if (shuttleX + shuttleWidth >= cvsWidth) {
+        shuttleX = cvsWidth - shuttleWidth - 1;
+    }
+    if(shuttleX <= 0) {
+        shuttleX = 1;
+    }
     ctx.fillStyle = projectileColor;
     
     
@@ -187,7 +251,7 @@ function shoot() {
         
         // console.log("LŐ!");
         bulletController.shoot((shuttleX + (shuttleWidth / 2) - (projectileWidth / 2)) - 2, shuttleY + 55, projectileSpeed, projectileDelay);
-        ctx.drawImage(img2, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+        
     }
 }
 
@@ -195,13 +259,25 @@ function shoot() {
 
 
 keydown = (e) => {
-    if (e.code == 'ArrowRight' && shuttleX + shuttleWidth < cvsWidth) {
-        shuttleX += shuttleSpeed;
+
+    
+    
+
+    
+
+    if (e.code == 'ArrowRight') {
+        // shuttleX += shuttleSpeed;
+        velXRight = 3;
+        
         
     }
-    if (e.code == 'ArrowLeft' && shuttleX > 0) {
-        shuttleX -= shuttleSpeed;
+    
+    if (e.code == 'ArrowLeft') {
+        // shuttleX -= shuttleSpeed;
+        velXLeft = -3;
+        
     }
+    
     if(e.code == "Space") {
         shootPressed = true;
     }
@@ -210,6 +286,17 @@ keydown = (e) => {
 keyup = (e) => {
     if(e.code == "Space") {
         shootPressed = false;
+    }
+    if (e.code == 'ArrowRight' ) {
+        // shuttleX += shuttleSpeed;
+        velXRight = 0;
+ 
+        
+    }
+    if (e.code == 'ArrowLeft') {
+        // shuttleX -= shuttleSpeed;
+        velXLeft = 0;
+      
     }
 }
 
