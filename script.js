@@ -47,6 +47,30 @@ class Bullet{
     }
 }
 
+class EnemyController{
+    enemies = [];
+    timerTillNextEnemy = 0;
+    constructor(canvas) {
+         this.canvas = canvas;
+    }
+
+    spawn() {
+        if(this.timerTillNextEnemy <= 0) {
+            this.enemies.push(new Enemy(cvs));
+            this.timerTillNextEnemy = 1000;
+        }
+
+        this.timerTillNextEnemy--;
+    }
+
+    draw(ctx) {
+        // console.log(this.bullets.length)
+        this.enemies.forEach((enemy) => {
+                
+            enemy.draw(ctx)});
+    }
+}
+
 class Enemy{
     constructor(canvas) {
         this.height = 50;
@@ -86,8 +110,7 @@ const cvsHeight = 600;
 const cvsWidth = 600;
 
 
-//BULLET CONTROLLER
-const bulletController = new BulletController(cvs);
+
 
 //SHUTTLE
 const shuttleWidth = 50;
@@ -117,7 +140,12 @@ const projectileY = shuttleY - projectileHeight;
 
 let shootPressed = false;
 
-const enemy = new Enemy(100, 100, cvs);
+//BULLET CONTROLLER
+const bulletController = new BulletController(cvs);
+
+//ENEMY CONTROLLER
+// const enemy = new Enemy(cvs);
+const enemyController = new EnemyController(cvs);
 
 function draw() {
     
@@ -134,8 +162,10 @@ function draw() {
     ctx.fillStyle = projectileColor;
     bulletController.draw(ctx);
     shoot();
-    enemy.draw(ctx);
-
+    // enemy.draw(ctx);
+    
+    enemyController.draw(ctx);
+    enemyController.spawn();
     //  let enemy1 = new Enemy(100, 100).draw(ctx);
 
     //  let enemy2 = new Enemy(400, 100).draw(ctx);
