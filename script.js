@@ -41,25 +41,30 @@ class Bullet{
 
     draw(ctx) {
         
-        ctx.fill = this.color; 
+        ctx.fillStyle = this.color; 
         this.y -= this.speed;
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
 
 class Enemy{
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.color = "yellow";
-        this.width = 50;
+    constructor(canvas) {
         this.height = 50;
+        this.width = 50;
+        this.x = Math.floor(Math.random() * ((cvsWidth- this.width) - 0) );
+        console.log(this.x);
+        this.y = -this.height;
+        this.canvas = canvas;
+        this.color = "yellow";
+        
+        
         
     }
 
     draw(ctx) {
 
         ctx.fillStyle = this.color;
+        this.y += 1;
         ctx.fillRect(this.x, this.y, this.width, this.height); 
         
     }
@@ -112,6 +117,8 @@ const projectileY = shuttleY - projectileHeight;
 
 let shootPressed = false;
 
+const enemy = new Enemy(100, 100, cvs);
+
 function draw() {
     
     
@@ -127,10 +134,11 @@ function draw() {
     ctx.fillStyle = projectileColor;
     bulletController.draw(ctx);
     shoot();
+    enemy.draw(ctx);
 
-     let enemy1 = new Enemy(100, 100).draw(ctx);
+    //  let enemy1 = new Enemy(100, 100).draw(ctx);
 
-     let enemy2 = new Enemy(400, 100).draw(ctx);
+    //  let enemy2 = new Enemy(400, 100).draw(ctx);
     
 }
 
@@ -141,6 +149,7 @@ function shoot() {
         ctx.drawImage(img2, 250, 500, 100, 100);
     }
 }
+
 
 
 
