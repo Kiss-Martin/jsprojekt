@@ -41,9 +41,11 @@ class Bullet{
 
     draw(ctx) {
         
-        ctx.fillStyle = this.color; 
+        // ctx.fillStyle = this.color; 
         this.y -= this.speed;
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.drawImage(img1, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+        ctx.drawImage(img3, this.x, this.y, this.width, this.height)
     }
 }
 
@@ -57,7 +59,7 @@ class EnemyController{
     spawn() {
         if(this.timerTillNextEnemy <= 0) {
             this.enemies.push(new Enemy(cvs));
-            this.timerTillNextEnemy = 1000;
+            this.timerTillNextEnemy = 250;
         }
 
         this.timerTillNextEnemy--;
@@ -104,6 +106,7 @@ const ctx = cvs.getContext('2d');
 
 const img1 = document.getElementById("mozog");
 const img2 = document.getElementById("lő");
+const img3 = document.getElementById("cesarp");
 
 const cvsHeight = 600;
 
@@ -113,9 +116,9 @@ const cvsWidth = 600;
 
 
 //SHUTTLE
-const shuttleWidth = 50;
+const shuttleWidth = 100;
 
-const shuttleHeight = 50;
+const shuttleHeight = 100;
 
 const shuttleSpeed = 25;
 
@@ -126,11 +129,11 @@ let shuttleY = cvsHeight - shuttleHeight;
 //PROJECTILE
 const projectileSpeed = 7;
 
-const projectileDelay = 5;
+const projectileDelay = 40;
 
-const projectileWidth = 5;
+const projectileWidth = 25;
 
-const projectileHeight = 10;
+const projectileHeight = 25;
 
 const projectileColor = "red";
 
@@ -151,17 +154,20 @@ function draw() {
     
     
     ctx.clearRect(0, 0, cvsWidth, cvsHeight);
-    ctx.drawImage(img1, 250, 500, 100, 100);
+    // ctx.drawImage(img1, 250, 500, 100, 100);
 
     
     
     
+    
+    // ctx.fillStyle = "blue";
+    // ctx.fillRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight)
 
-    ctx.fillStyle = "blue";
-    ctx.fillRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight)
+    ctx.drawImage(img1, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+
     ctx.fillStyle = projectileColor;
-    bulletController.draw(ctx);
-    shoot();
+    
+    
     // enemy.draw(ctx);
     
     enemyController.draw(ctx);
@@ -169,14 +175,19 @@ function draw() {
     //  let enemy1 = new Enemy(100, 100).draw(ctx);
 
     //  let enemy2 = new Enemy(400, 100).draw(ctx);
+
     
+
+    shoot();
+    bulletController.draw(ctx);
 }
 
 function shoot() {
     if(shootPressed) {
+        
         // console.log("LŐ!");
-        bulletController.shoot(shuttleX + (shuttleWidth / 2) - (projectileWidth / 2), shuttleY, projectileSpeed, projectileDelay);
-        ctx.drawImage(img2, 250, 500, 100, 100);
+        bulletController.shoot((shuttleX + (shuttleWidth / 2) - (projectileWidth / 2)) - 2, shuttleY + 55, projectileSpeed, projectileDelay);
+        ctx.drawImage(img2, shuttleX, shuttleY, shuttleWidth, shuttleHeight);
     }
 }
 
