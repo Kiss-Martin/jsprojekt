@@ -230,9 +230,10 @@ class Asteroid{
 
     draw(ctx) {
 
-        ctx.fillStyle = this.color;
+        // ctx.fillStyle = this.color;
         this.y += 0.25;
-        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.fillRect(this.x, this.y, this.width, this.height); 
+        ctx.drawImage(img4, this.x, this.y, this.width, this.height)
         
     }
 
@@ -255,6 +256,8 @@ const ctx = cvs.getContext('2d');
 const img1 = document.getElementById("mozog");
 const img2 = document.getElementById("lő");
 const img3 = document.getElementById("cesarp");
+const img4 = document.getElementById("asteroid_img");
+
 
 const cvsHeight = 600;
 
