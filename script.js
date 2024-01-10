@@ -218,7 +218,7 @@ class Asteroid{
         this.height = 50;
         this.width = 50;
         this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
-        this.health = 4;
+        this.health = 3;
         console.log(this.x);
         this.y = -this.height;
         this.canvas = canvas;
@@ -233,7 +233,16 @@ class Asteroid{
         // ctx.fillStyle = this.color;
         this.y += 0.25;
         // ctx.fillRect(this.x, this.y, this.width, this.height); 
-        ctx.drawImage(img4, this.x, this.y, this.width, this.height)
+        if (this.health == 3) {
+            ctx.drawImage(img4, this.x, this.y, this.width, this.height)
+        }
+        else if (this.health == 2) {
+            ctx.drawImage(img5, this.x, this.y, this.width, this.height)
+        }
+        else {
+            ctx.drawImage(img6, this.x, this.y, this.width, this.height)
+        }
+        
         
     }
 
@@ -350,7 +359,9 @@ const ctx = cvs.getContext('2d');
 const img1 = document.getElementById("mozog");
 const img2 = document.getElementById("lő");
 const img3 = document.getElementById("cesarp");
-const img4 = document.getElementById("asteroid_img");
+const img4 = document.getElementById("asteroid1");
+const img5 = document.getElementById("asteroid2");
+const img6 = document.getElementById("asteroid3");
 
 
 const cvsHeight = 600;
