@@ -36,7 +36,7 @@ class BulletController{
                 return true;
             }
             return false;
-        })
+        });
     }
 
     checkProjectileOffScreen(bullet) {
@@ -103,6 +103,7 @@ class EnemyController{
 
             if(bulletController.collideWith(enemy)) {
                 this.enemies.splice(this.enemies.indexOf(enemy), 1)
+                score ++;
             }
             else {
                 enemy.draw(ctx)
@@ -114,6 +115,8 @@ class EnemyController{
     checkEnemyOffScreen(enemy) {
         return enemy.y >= cvsHeight + enemy.height;
     }
+
+    
 }
 
 class Enemy{
@@ -142,7 +145,108 @@ class Enemy{
 
 //CANVAS
 
+class AsteroidController {
+    asteroids = [];
+    
+    timerTillNextAsteroid = 0;
+    constructor(canvas) {
+         this.canvas = canvas;
+         
+    }
 
+    spawn() {
+        if(this.timerTillNextAsteroid <= 0) {
+            this.asteroids.push(new Asteroid(cvs));
+            console.log(this.asteroids.length);
+            this.timerTillNextAsteroid = 1500;
+        }
+
+        this.timerTillNextAsteroid--;
+    }
+
+    draw(ctx) {
+        // console.log(this.bullets.length)
+        this.asteroids.forEach((asteroid) => {
+
+            if(this.checkAsteroidOffScreen(asteroid)) {
+                const index = this.asteroids.indexOf(asteroid)
+                this.asteroids.splice(index, 1)
+            }
+
+            if(bulletController.collideWith(asteroid)) {
+                if (asteroid.health > 1) {
+                    asteroid.health--;
+                }
+                
+                else {
+                    this.asteroids.splice(this.asteroids.indexOf(asteroid), 1)
+                }
+                
+            }
+            else {
+                asteroid.draw(ctx);
+            }
+                
+            
+
+            });
+    }
+
+    collideWith(sprite) {
+        return this.asteroids.some(asteroid=>{
+            if(asteroid.collideWith()) {
+                this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
+                return true;
+            }
+            return false;
+        });
+    }
+
+    checkAsteroidOffScreen(asteroid) {
+        return asteroid.y >= cvsWidth + asteroid.height;
+    }
+
+    
+
+    // checkEnemyOffScreen(enemy) {
+    //     return enemy.y >= cvsHeight + enemy.height;
+    // }
+}
+
+class Asteroid{
+    constructor(canvas) {
+        this.height = 50;
+        this.width = 50;
+        this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
+        this.health = 4;
+        console.log(this.x);
+        this.y = -this.height;
+        this.canvas = canvas;
+        this.color = "black";
+        
+        
+        
+    }
+
+    draw(ctx) {
+
+        ctx.fillStyle = this.color;
+        this.y += 0.25;
+        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        
+    }
+
+    collideWith() {
+        if(this.x < shuttleX + shuttleWidth &&
+           this.x + this.width > shuttleX &&
+           this.y <shuttleY + shuttleHeight &&
+           this.y + this.height > shuttleY) {
+            //ELTŰN
+            return true;
+           }
+           return false;
+    }
+}
 
 const cvs = document.querySelector('#cvs');
 
@@ -195,8 +299,13 @@ let velXRight = 0;
 const bulletController = new BulletController(cvs);
 
 //ENEMY CONTROLLER
-// const enemy = new Enemy(cvs);
 const enemyController = new EnemyController(cvs);
+
+//ASTEROID CONTROLLER
+const asteroidController = new AsteroidController(cvs);
+
+//SCORE
+let score = 0;
 
 function draw() {
     
@@ -210,7 +319,8 @@ function draw() {
     
     // ctx.fillStyle = "blue";
     // ctx.fillRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight)
-
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight);
     shuttleX += velXLeft;
     
     shuttleX += velXRight;
@@ -229,6 +339,9 @@ function draw() {
     if(shuttleX <= 0) {
         shuttleX = 1;
     }
+
+
+
     ctx.fillStyle = projectileColor;
     
     
@@ -236,6 +349,9 @@ function draw() {
     
     enemyController.draw(ctx);
     enemyController.spawn();
+
+    asteroidController.draw(ctx);
+    asteroidController.spawn();
     //  let enemy1 = new Enemy(100, 100).draw(ctx);
 
     //  let enemy2 = new Enemy(400, 100).draw(ctx);
@@ -244,6 +360,14 @@ function draw() {
 
     shoot();
     bulletController.draw(ctx);
+
+    if(asteroidController.collideWith()) {
+        alert("VESZTETTÉL...");
+    }
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "#794bc9";
+    ctx.fillText("Score: " + score, 10, 50);
 }
 
 function shoot() {
