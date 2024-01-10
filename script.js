@@ -362,6 +362,10 @@ const img3 = document.getElementById("cesarp");
 const img4 = document.getElementById("asteroid1");
 const img5 = document.getElementById("asteroid2");
 const img6 = document.getElementById("asteroid3");
+const img7 = document.getElementById("enemy1");
+const img8 = document.getElementById("enemy2");
+const img9 = document.getElementById("enemy3");
+const img10 = document.getElementById("enemy4");
 
 
 const cvsHeight = 600;
