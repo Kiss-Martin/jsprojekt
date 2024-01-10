@@ -250,43 +250,83 @@ class Asteroid{
 }
 
 class AllyController {
+    allies = [];
+    
+    timerTillNextAlly = 0;
+    constructor(canvas) {
+         this.canvas = canvas;
+         
+    }
 
+    spawn() {
+        if(this.timerTillNextAlly <= 0) {
+            this.allies.push(new Ally(cvs));
+            // console.log(this.asteroids.length);
+            this.timerTillNextAlly = 2000;
+        }
+
+        this.timerTillNextAlly--;
+    }
+
+    draw(ctx) {
+        // console.log(this.bullets.length)
+        this.allies.forEach((ally) => {
+
+            if(this.checkAllyOffScreen(ally)) {
+                const index = this.allies.indexOf(ally)
+                this.allies.splice(index, 1)
+            }
+
+            
+            ally.draw(ctx);
+            
+                
+            
+
+            });
+    }
+
+    
+
+    checkAllyOffScreen(ally) {
+        return ally.y >= cvsWidth + ally.height;
+    }
 }
 
 class Ally {
-    // constructor(canvas) {
-    //     this.height = 50;
-    //     this.width = 50;
-    //     this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
-    //     this.health = 4;
-    //     console.log(this.x);
-    //     this.y = -this.height;
-    //     this.canvas = canvas;
-    //     this.color = "green";
+    constructor(canvas) {
+        this.height = 50;
+        this.width = 50;
+        this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
+        this.health = 4;
+        console.log(this.x);
+        this.y = -this.height;
+        this.canvas = canvas;
+        this.color = "green";
         
         
         
-    // }
+    }
 
-    // draw(ctx) {
+    draw(ctx) {
 
-    //     ctx.fillStyle = this.color;
-    //     this.y += 0.25;
-    //     ctx.fillRect(this.x, this.y, this.width, this.height); 
-    //     ctx.drawImage(img4, this.x, this.y, this.width, this.height)
+        ctx.fillStyle = this.color;
+        this.y += 3;
+        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.drawImage(img4, this.x, this.y, this.width, this.height)
         
-    // }
+    }
 
-    // collideWith() {
-    //     if(this.x < shuttleX + shuttleWidth &&
-    //        this.x + this.width > shuttleX &&
-    //        this.y <shuttleY + shuttleHeight &&
-    //        this.y + this.height > shuttleY) {
-    //         //ELTŰN
-    //         return true;
-    //        }
-    //        return false;
-    // }
+    collideWith() {
+        if(this.x < shuttleX + shuttleWidth &&
+           this.x + this.width > shuttleX &&
+           this.y <shuttleY + shuttleHeight &&
+           this.y + this.height > shuttleY) {
+            //ELTŰN
+            return true;
+           }
+           return false;
+    }
 }
 
 
@@ -309,7 +349,7 @@ const cvsWidth = 600;
 
 
 //SHUTTLE
-const shuttleWidth = 100;
+const shuttleWidth = 70;
 
 const shuttleHeight = 100;
 
@@ -348,6 +388,10 @@ const enemyController = new EnemyController(cvs);
 
 //ASTEROID CONTROLLER
 const asteroidController = new AsteroidController(cvs);
+
+//ALLY CONTROLLER
+
+const allyController = new AllyController(cvs);
 
 //SCORE
 let score = 0;
@@ -397,6 +441,9 @@ function draw() {
 
     asteroidController.draw(ctx);
     asteroidController.spawn();
+
+    allyController.draw(ctx);
+    allyController.spawn();
     //  let enemy1 = new Enemy(100, 100).draw(ctx);
 
     //  let enemy2 = new Enemy(400, 100).draw(ctx);
