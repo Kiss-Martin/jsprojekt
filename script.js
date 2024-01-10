@@ -249,6 +249,48 @@ class Asteroid{
     }
 }
 
+class AllyController {
+
+}
+
+class Ally {
+    // constructor(canvas) {
+    //     this.height = 50;
+    //     this.width = 50;
+    //     this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
+    //     this.health = 4;
+    //     console.log(this.x);
+    //     this.y = -this.height;
+    //     this.canvas = canvas;
+    //     this.color = "green";
+        
+        
+        
+    // }
+
+    // draw(ctx) {
+
+    //     ctx.fillStyle = this.color;
+    //     this.y += 0.25;
+    //     ctx.fillRect(this.x, this.y, this.width, this.height); 
+    //     ctx.drawImage(img4, this.x, this.y, this.width, this.height)
+        
+    // }
+
+    // collideWith() {
+    //     if(this.x < shuttleX + shuttleWidth &&
+    //        this.x + this.width > shuttleX &&
+    //        this.y <shuttleY + shuttleHeight &&
+    //        this.y + this.height > shuttleY) {
+    //         //ELTŰN
+    //         return true;
+    //        }
+    //        return false;
+    // }
+}
+
+
+
 const cvs = document.querySelector('#cvs');
 
 const ctx = cvs.getContext('2d');
