@@ -7,10 +7,10 @@ class BulletController{
 
     shoot(x, y, speed, delay) {
         if(this.timerTillNextBullet <= 0) {
-            if(this.bullets.length <= 3) {
-                this.bullets.push(new Bullet(x, y, speed));
+            
+            this.bullets.push(new Bullet(x, y, speed));
                 
-            }
+            
             
             this.timerTillNextBullet = delay;
             
@@ -192,7 +192,7 @@ class AsteroidController {
             });
     }
 
-    collideWith(sprite) {
+    collideWith() {
         return this.asteroids.some(asteroid=>{
             if(asteroid.collideWith()) {
                 this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
@@ -262,7 +262,7 @@ class AllyController {
         if(this.timerTillNextAlly <= 0) {
             this.allies.push(new Ally(cvs));
             // console.log(this.asteroids.length);
-            this.timerTillNextAlly = 2000;
+            this.timerTillNextAlly = 5000;
         }
 
         this.timerTillNextAlly--;
@@ -284,6 +284,18 @@ class AllyController {
             
 
             });
+
+        
+    }
+
+    collideWith() {
+        return this.allies.some(ally=>{
+            if(ally.collideWith()) {
+                this.allies.splice(this.allies.indexOf(ally), 1);
+                return true;
+            }
+            return false;
+        });
     }
 
     
@@ -362,7 +374,7 @@ let shuttleY = cvsHeight - shuttleHeight;
 //PROJECTILE
 const projectileSpeed = 7;
 
-const projectileDelay = 50;
+let projectileDelay = 50;
 
 const projectileWidth = 25;
 
@@ -380,6 +392,9 @@ let velXLeft = 0;
 
 let velXRight = 0;
 
+
+
+
 //BULLET CONTROLLER
 const bulletController = new BulletController(cvs);
 
@@ -392,6 +407,11 @@ const asteroidController = new AsteroidController(cvs);
 //ALLY CONTROLLER
 
 const allyController = new AllyController(cvs);
+
+//POWER UP
+let powerUpTimer = 1000;
+
+let powerUpActive = false;
 
 //SCORE
 let score = 0;
@@ -456,6 +476,25 @@ function draw() {
     if(asteroidController.collideWith()) {
         alert("VESZTETTÉL...");
     }
+
+    if(allyController.collideWith()) {
+        powerUpActive = true;
+        
+    }
+
+    if (powerUpActive) {
+        if (powerUpTimer >= 0) {
+            projectileDelay = 5;
+            powerUpTimer--;
+        }
+        else {
+            projectileDelay = 50;
+            powerUpTimer = 1000;
+            powerUpActive = false;
+        }
+    }
+
+    
 
     ctx.font = "30px Arial";
     ctx.fillStyle = "#794bc9";
