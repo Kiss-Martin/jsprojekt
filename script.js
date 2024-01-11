@@ -106,7 +106,8 @@ class EnemyController{
                 score ++;
             }
             else {
-                enemy.draw(ctx)
+                enemy.draw(ctx);
+                    
             }
 
             });
@@ -121,8 +122,8 @@ class EnemyController{
 
 class Enemy{
     constructor(canvas) {
-        this.height = 50;
-        this.width = 50;
+        this.height = 60;
+        this.width = 60;
         this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
         
         console.log(this.x);
@@ -135,12 +136,15 @@ class Enemy{
     }
 
     draw(ctx) {
-
-        ctx.fillStyle = this.color;
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(img8, this.x, this.y, this.width, this.height)
+        // ctx.fillStyle = this.color;
         this.y += 2;
-        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.fillRect(this.x, this.y, this.width, this.height); 
         
     }
+
 }
 
 //CANVAS
@@ -316,8 +320,8 @@ class AllyController {
 
 class Ally {
     constructor(canvas) {
-        this.height = 50;
-        this.width = 50;
+        this.height = 70;
+        this.width = 70;
         this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
         this.health = 4;
         console.log(this.x);
@@ -331,10 +335,11 @@ class Ally {
 
     draw(ctx) {
 
-        ctx.fillStyle = this.color;
+        // ctx.fillStyle = this.color;
         this.y += 3;
-        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.fillRect(this.x, this.y, this.width, this.height); 
         // ctx.drawImage(img4, this.x, this.y, this.width, this.height)
+        ctx.drawImage(img11, this.x, this.y, this.width, this.height)
         
     }
 
@@ -366,6 +371,7 @@ const img7 = document.getElementById("enemy1");
 const img8 = document.getElementById("enemy2");
 const img9 = document.getElementById("enemy3");
 const img10 = document.getElementById("enemy4");
+const img11 = document.getElementById("slo");
 
 
 const cvsHeight = 600;
