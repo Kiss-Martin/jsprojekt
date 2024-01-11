@@ -122,8 +122,8 @@ class EnemyController{
 
 class Enemy{
     constructor(canvas) {
-        this.height = 60;
-        this.width = 60;
+        this.height = 70;
+        this.width = 70;
         this.x = Math.floor(Math.random() * ((cvsWidth-70) - 70) + 70);
         
         console.log(this.x);
@@ -136,8 +136,8 @@ class Enemy{
     }
 
     draw(ctx) {
-        ctx.strokeStyle = "red";
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        // ctx.strokeStyle = "red";
+        // ctx.strokeRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(img8, this.x, this.y, this.width, this.height)
         // ctx.fillStyle = this.color;
         this.y += 2;
