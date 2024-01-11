@@ -1,6 +1,35 @@
 body {
     background-color: rgb(28, 13, 97);
-    
+    color:aliceblue;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.leírások{
+    background-color: rgba(0, 0, 0, 0.329);
+    padding: 2%;
+    border-radius: 25px;
+}
+
+.felirat{
+    margin-left: 3%;
+}
+
+.vissza{
+    float: left;
+    margin-left: 1%;
+}
+
+.faszomtudja{
+    text-align: center;
+    color: aliceblue;
+}
+
+.kepek{
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-right: 20px;
 }
 
 
