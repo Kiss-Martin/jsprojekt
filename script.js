@@ -98,7 +98,8 @@ class EnemyController{
 
             if(this.checkEnemyOffScreen(enemy)) {
                 
-                alert("VESZTETTÉL!");
+                // alert("VESZTETTÉL!");
+                endGame();
             }
 
             if(bulletController.collideWith(enemy)) {
@@ -495,7 +496,8 @@ function draw() {
     bulletController.draw(ctx);
 
     if(asteroidController.collideWith()) {
-        alert("VESZTETTÉL...");
+        // alert("VESZTETTÉL...");
+        endGame();
     }
 
     if(allyController.collideWith()) {
@@ -578,8 +580,25 @@ keyup = (e) => {
 
 
 
-const interval = setInterval(draw, 5);
+let interval;
+
+function gameStart() {
+    document.getElementById("start-screen").style.display = "none";
+    // alert("start");
+    interval = setInterval(draw, 5);
 
 
-document.addEventListener("keydown", keydown)
-window.addEventListener('keyup', keyup)
+    document.addEventListener("keydown", keydown)
+    window.addEventListener('keyup', keyup)
+}
+
+function endGame() {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("end-screen").style.display = "block";
+    clearInterval(interval);
+    
+}
+
+function refreshGame() {
+    location.reload();
+}

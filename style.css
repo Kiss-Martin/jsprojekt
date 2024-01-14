@@ -37,7 +37,88 @@ body {
     border: 5px solid black;
     background-image: url('space_background.jpg');
     background-position: 16%;
+    position: absolute;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
+    left: calc(50% - 300px);
+} 
+
+#start-screen {
+    border: 5px solid black;
+    background-image: url('start_screen_bg.jpg');
+    background-position: 0%;
+    position: absolute;
+    display: block;
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 600px;
+
+}
+
+
+
+.start-btn {
+    background: rgb(245,77,109);
+    background: radial-gradient(circle, rgba(245,77,109,1) 0%, rgba(117,130,204,1) 86%, rgba(117,130,204,1) 86%);
+    border: 2px solid black;
+    width: 300px;
+    height: 100px;
+    border-radius: 5%;
+    margin-left: calc(50% - 150px);
+    margin-top: calc(50% - 75px);
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    
+}
+
+
+.start-btn:hover {
+    
+    background: rgb(66,8,19);
+    background: radial-gradient(circle, rgba(66,8,19,1) 0%, rgba(9,14,41,1) 100%);
+    color: rgb(255, 255, 255);
+}
+
+#end-screen {
+    border: 5px solid black;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 65%, rgba(195,34,34,1) 100%);
+    position: absolute;
+    display: none;
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 600px;
+
+}
+
+.menu-btn {
+    background: rgb(245,77,109);
+    background: radial-gradient(circle, rgba(245,77,109,1) 0%, rgba(117,130,204,1) 86%, rgba(117,130,204,1) 86%);
+    border: 2px solid black;
+    width: 300px;
+    height: 100px;
+    border-radius: 5%;
+    margin-left: calc(50% - 150px);
+    margin-top: calc(50% - 275px);
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+
+.menu-btn:hover {
+    background: rgb(66,8,19);
+    background: radial-gradient(circle, rgba(66,8,19,1) 0%, rgba(9,14,41,1) 100%);
+    color: rgb(255, 255, 255);
+}
+
+#end-screen h1 {
+    text-align: center;
+    font-size: 80px;
+}
+
+#end-screen img {
+    width: 200px;
+    position: absolute;
+    margin-left: calc(50% - 550px);
+    margin-top: calc(50% - 150px);
 }
