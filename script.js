@@ -450,8 +450,8 @@ function draw() {
     
     // ctx.fillStyle = "blue";
     // ctx.fillRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight)
-    ctx.strokeStyle = "red";
-    ctx.strokeRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight);
+    // ctx.strokeStyle = "red";
+    // ctx.strokeRect(shuttleX, shuttleY, shuttleWidth, shuttleHeight);
     shuttleX += velXLeft;
     
     shuttleX += velXRight;
@@ -509,6 +509,9 @@ function draw() {
         if (powerUpTimer >= 0) {
             projectileDelay = 5;
             powerUpTimer--;
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "#b34ee6";
+            ctx.fillText("SLOwer Up!!!", 215, 50);
         }
         else {
             projectileDelay = 50;
@@ -595,6 +598,7 @@ function gameStart() {
 function endGame() {
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
+    document.getElementById("score-text").innerHTML = "Score: " + score
     clearInterval(interval);
     
 }

@@ -1,5 +1,6 @@
 body {
-    background-color: rgb(28, 13, 97);
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(121,66,210,1) 50%, rgba(0,0,0,1) 100%);
     color:aliceblue;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
@@ -42,6 +43,7 @@ body {
     /* margin-left: auto;
     margin-right: auto; */
     left: calc(50% - 300px);
+    margin-top: 100px;
 } 
 
 #start-screen {
@@ -53,7 +55,7 @@ body {
     left: calc(50% - 300px);
     width: 600px;
     height: 600px;
-
+    margin-top: 100px;
 }
 
 
@@ -66,7 +68,7 @@ body {
     height: 100px;
     border-radius: 5%;
     margin-left: calc(50% - 150px);
-    margin-top: calc(50% - 75px);
+    margin-top: calc(50% - 200px);
     font-size: 30px;
     color: rgb(0, 0, 0);
     
@@ -74,6 +76,26 @@ body {
 
 
 .start-btn:hover {
+    
+    background: rgb(66,8,19);
+    background: radial-gradient(circle, rgba(66,8,19,1) 0%, rgba(9,14,41,1) 100%);
+    color: rgb(255, 255, 255);
+}
+
+.info-btn {
+    background: rgb(245,77,109);
+    background: radial-gradient(circle, rgba(245,77,109,1) 0%, rgba(117,130,204,1) 86%, rgba(117,130,204,1) 86%);
+    border: 2px solid black;
+    width: 200px;
+    height: 50px;
+    border-radius: 5%;
+    margin-left: calc(50% - 100px);
+    margin-top: calc(100% - 575px);
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+
+.info-btn:hover {
     
     background: rgb(66,8,19);
     background: radial-gradient(circle, rgba(66,8,19,1) 0%, rgba(9,14,41,1) 100%);
@@ -89,7 +111,7 @@ body {
     left: calc(50% - 300px);
     width: 600px;
     height: 600px;
-
+    margin-top: 100px;
 }
 
 .menu-btn {
@@ -114,6 +136,7 @@ body {
 #end-screen h1 {
     text-align: center;
     font-size: 80px;
+    margin: 30px 0 0 0;
 }
 
 #end-screen img {
@@ -121,4 +144,19 @@ body {
     position: absolute;
     margin-left: calc(50% - 550px);
     margin-top: calc(50% - 150px);
+}
+
+#score-text {
+    text-align: center;
+    font-size: 30px;
+    margin: 0 0 60px 0;
+}
+
+#main-title {
+    text-align: center;
+    margin: 80px 0 0 0;
+    padding: 0;
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+
 }
